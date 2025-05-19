@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CCIE Rack Rentals</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 220px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 50;
+            display: none;
+        }
+
+        /* Submenu dropdowns */
+        .submenu-dropdown {
+            position: absolute;
+            top: 0;
+            left: 88%;
+            width: 162px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 60;
+            display: none;
+        }
+
+        .nav-item,
+        .submenu-item {
+            position: relative;
+        }
+
+        .nav-dropdown-item,
+        .submenu-dropdown-item {
+            padding: 0.75rem 1rem;
+            display: block;
+            color: #4a5568;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f0f4f8;
+        }
+
+        .nav-dropdown-item:hover,
+        .submenu-dropdown-item:hover {
+            background-color: #f0f4f8;
+            color: #3182ce;
+        }
+
+        .dropdown-trigger {
+            cursor: pointer;
+        }
+
+        /* Level 3 dropdown positioning */
+        .level3-dropdown {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 220px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 70;
+            display: none;
+        }
+
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 1rem;
+            max-width: 300px;
+            z-index: 100;
+        }
+
+
+        nav .container {
+            margin-left: -1.5rem;
+            padding-left: 1.5rem;
+        }
+
+
+        nav .container a.text-3xl {
+            padding-left: 0.75rem;
+        }
+
+        .ccieimg {
+            width: 134px;
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-dropdown,
+            .submenu-dropdown,
+            .level3-dropdown {
+                left: auto !important;
+                right: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-gray-50">
+
+    <!-- Top Bar -->
+    <div class="bg-blue-900 text-white text-sm py-2 px-4 md:px-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-0">
+
+            <!-- Contact Info -->
+            <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-1 sm:space-y-0">
+                <!-- Phone -->
+                <a href="tel:+19513764336" class="flex items-center space-x-2 hover:text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 5a2 2 0 012-2h2.28c.6 0 1.16.27 1.53.74l1.72 2.15a2 2 0 01-.22 2.7l-1.3 1.3a16.93 16.93 0 006.36 6.36l1.3-1.3a2 2 0 012.7-.22l2.15 1.72c.47.37.74.93.74 1.53V19a2 2 0 01-2 2h-1C9.94 21 3 14.06 3 5V5z" />
+                    </svg>
+                    <span>+1 951-376-4336</span>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:support@ccierack.rentals" class="flex items-center space-x-2 hover:text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 12H8m8-4H8m8 8H8m-4 0h.01M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" />
+                    </svg>
+                    <span>support@ccierack.rentals</span>
+                </a>
+            </div>
+
+            <!-- WhatsApp -->
+            <a href="#" class="flex items-center space-x-2 hover:text-gray-300 mt-2 md:mt-0">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.031-.967-.273-.099-.471-.148-.669.15s-.767.967-.94 1.164c-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.297.297-.495.099-.198.05-.372-.025-.52-.075-.148-.669-1.611-.916-2.206-.242-.582-.487-.503-.669-.513l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.077 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.412.248-.694.248-1.29.173-1.412-.074-.123-.272-.198-.57-.347z" />
+                </svg>
+                <span>Whatsapp Groups</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <a href="#" class="text-3xl font-bold text-blue-600">CCIE <span class="text-gray-900">RACK</span></a>
+
+                <!-- Menu -->
+                <ul class="hidden md:flex space-x-6 font-semibold text-gray-700">
+                    <li class="nav-item">
+                        <a href="#" class="flex items-center space-x-1 hover:text-blue-600 dropdown-trigger"
+                            data-dropdown="cisco-dropdown">
+                            <span>Cisco</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </a>
+                        <!-- Level 1 Dropdown -->
+                        <ul class="nav-dropdown" id="cisco-dropdown">
+                            <li><a href="#" class="nav-dropdown-item">CCNA</a></li>
+                            <li class="submenu-item">
+                                <a href="#" class="nav-dropdown-item flex items-center justify-between dropdown-trigger"
+                                    data-dropdown="ccnp-dropdown">
+                                    CCNP
+                                    <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                                <!-- Level 2 Dropdown -->
+                                <ul class="submenu-dropdown" id="ccnp-dropdown">
+                                    <!-- EI -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="ei-dropdown">
+                                            EI
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="ei-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">EI v1.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Security -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="security-dropdown">
+                                            Security
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="security-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">SEC v6.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">CCIE Security v6.1
+                                                    Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Collaboration -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="collab-dropdown">
+                                            Collaboration
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="collab-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Data Center -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="dc-dropdown">
+                                            Data Center
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="dc-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Service Provider -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="sp-dropdown">
+                                            Service Provider
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="sp-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">SP V5.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Wireless -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="wireless-dropdown">
+                                            Wireless
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="wireless-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- DevNet -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="devnet-dropdown">
+                                            DevNet
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="devnet-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </li>
+                            <li class="submenu-item">
+                                <a href="#" class="nav-dropdown-item flex items-center justify-between dropdown-trigger"
+                                    data-dropdown="ccie-dropdown">
+                                    CCIE
+                                    <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                                <!-- Level 2 Dropdown -->
+                                <ul class="submenu-dropdown" id="ccie-dropdown">
+                                    <!-- EI -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="ccie-ei-dropdown">
+                                            EI
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="ccie-ei-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">EI v1.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Security -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="ccie-security-dropdown">
+                                            Security
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="ccie-security-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">SEC v6.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">
+                                                    Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Data Center -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="ccie-dc-dropdown">
+                                            Data Center
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="ccie-dc-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">DC v3.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Collaboration -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="ccie-collab-dropdown">
+                                            Collaboration
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="ccie-collab-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">DC v3.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Service Provider -->
+                                    <li class="submenu-item">
+                                        <a href="#"
+                                            class="submenu-dropdown-item flex items-center justify-between dropdown-trigger"
+                                            data-dropdown="ccie-sp-dropdown">
+                                            Service Provider
+                                            <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </a>
+                                        <ul class="submenu-dropdown" id="ccie-sp-dropdown">
+                                            <li><a href="#" class="submenu-dropdown-item">Training</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Plans And Pricing</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Equipment</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">DC v3.1 Topology</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Scheduler</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Rack Access Guide</a></li>
+                                            <li><a href="#" class="submenu-dropdown-item">Buy Now</a></li>
+                                        </ul>
+                                    </li>
+                                    <!-- Wireless -->
+
+
+                                    <!-- DevNet -->
+
+
+
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#" class="hover:text-blue-600">Fortinet</a></li>
+
+                    <li><a href="#" class="hover:text-blue-600">Contact</a></li>
+                </ul>
+
+                <!-- Mobile Hamburger (optional) -->
+                <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <section
+        class="relative h-[450px] bg-[url('695_mainBanner.jpg')] bg-center bg-cover flex items-center justify-center">
+        <div class="bg-black bg-opacity-40 p-8 rounded-md max-w-4xl text-center">
+            <!-- <h1 class="text-5xl text-white font-extrabold mb-4 leading-tight">
+      NEW <span class="bg-yellow-400 px-2 rounded">CCIE RACKS</span><br />
+      Available for Booking
+    </h1>
+    <p class="text-white text-lg max-w-2xl mx-auto">
+      High quality CCIE rack rentals for all certification tracks.
+    </p> -->
+        </div>
+    </section>
+    <section class="bg-white py-16 px-6 md:px-20">
+        <!-- Certification Logos -->
+        <div class="flex flex-wrap justify-center items-center gap-10 mb-12">
+            <div class="text-center">
+                <img class="ccieimg" src="ccie_ent-1-300x188.png" alt="CCIE EI v1.1"
+                    class="mx-auto rounded-full border p-3" />
+                <p class="mt-2 text-sm font-semibold text-gray-700">CCIE EI v1.1</p>
+            </div>
+            <div class="text-center">
+                <img class="ccieimg" src="ccie_ent-1-300x188.png" alt="CCIE EI v1.1"
+                    class="mx-auto rounded-full border p-3" />
+                <p class="mt-2 text-sm font-semibold text-gray-700">CCIE EI v1.1</p>
+            </div>
+            <div class="text-center">
+                <img class="ccieimg" src="ccie_ent-1-300x188.png" alt="CCIE EI v1.1"
+                    class="mx-auto rounded-full border p-3" />
+                <p class="mt-2 text-sm font-semibold text-gray-700">CCIE EI v1.1</p>
+            </div>
+            <div class="text-center">
+                <img class="ccieimg" src="ccie_ent-1-300x188.png" alt="CCIE EI v1.1"
+                    class="mx-auto rounded-full border p-3" />
+                <p class="mt-2 text-sm font-semibold text-gray-700">CCIE EI v1.1</p>
+            </div>
+            <div class="text-center">
+                <img class="ccieimg" src="ccie_ent-1-300x188.png" alt="CCIE EI v1.1"
+                    class="mx-auto rounded-full border p-3" />
+                <p class="mt-2 text-sm font-semibold text-gray-700">CCIE EI v1.1</p>
+            </div>
+            <div class="text-center">
+                <img class="ccieimg" src="ccie_ent-1-300x188.png" alt="CCIE EI v1.1"
+                    class="mx-auto rounded-full border p-3" />
+                <p class="mt-2 text-sm font-semibold text-gray-700">CCIE EI v1.1</p>
+            </div>
+
+        </div>
+
+        <!-- Call to Action -->
+        <div
+            class="bg-blue-900 rounded-lg py-8 px-6 mb-16 flex flex-col md:flex-row justify-between items-center text-white">
+            <h2 class="text-3xl font-bold mb-6 md:mb-0">Call & Get Best Plan For You</h2>
+            <a href="#"
+                class="bg-white text-blue-900 font-semibold px-6 py-3 rounded-md hover:bg-gray-100 transition">Connect
+                Now</a>
+        </div>
+
+
+        <!-- aboutus -->
+        <div class="flex flex-col md:flex-row md:items-center gap-8 max-w-6xl mx-auto">
+            <div class="md:w-1/2">
+                <h3 class="text-2xl font-bold mb-4">About Us</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    Welcome to CCIE Rack Rentals.
+                </p>
+                <p class="mt-4 text-gray-600 leading-relaxed">
+                    We provide top-quality rack rentals for all CCIE tracks. Our goal is to help networking
+                    professionals and aspiring CCIE candidates by offering reliable, high-performance rack rental
+                    solutions designed to meet the needs of rigorous certification training.
+                </p>
+            </div>
+            <div class="md:w-1/2">
+                <img src="Screenshot-2024-05-28-152118-1-300x265.png" alt="Network Engineers"
+                    class="rounded-lg shadow-lg" style="width: 120%;" />
+            </div>
+        </div>
+
+
+
+    </section>
+
+    <!-- Equipment Section -->
+    <div class="bg-blue-900 text-white rounded-lg p-10 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+        <!-- Equipment Image & Title -->
+        <div class="md:w-1/2 text-center md:text-left">
+            <h3 class="text-3xl font-bold mb-6">CCIE Real Lab Equipment</h3>
+            <img src="equipement_img-768x342.png" alt="Lab Equipment" class="rounded-lg shadow-lg mx-auto md:mx-0" />
+        </div>
+
+        <!-- Contact Form -->
+        <form class="md:w-1/2 bg-white text-gray-900 rounded-lg p-8 shadow-lg" action="#" method="POST" novalidate>
+            <h3 class="text-2xl font-bold mb-6 text-blue-900">Contact Us</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <input type="text" name="name" placeholder="Your Name" required
+                    class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+                <input type="email" name="email" placeholder="Your Email" required
+                    class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            </div>
+
+            <input type="tel" name="phone" placeholder="Mobile Number"
+                class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+
+            <input type="text" name="subject" placeholder="Subject"
+                class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+
+            <textarea name="message" placeholder="Message" rows="4" required
+                class="w-full border border-gray-300 rounded-md px-4 py-2 mb-6 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+
+            <!-- CAPTCHA / Type code example -->
+            <div class="flex items-center space-x-4 mb-6">
+                <input type="text" name="captcha" placeholder="Type Code" required
+                    class="w-32 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
+                <div class="bg-gray-200 text-gray-800 font-bold px-4 py-2 rounded select-none">U4M6</div>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-blue-900 text-white font-semibold py-3 rounded-md hover:bg-blue-800 transition">
+                Submit
+            </button>
+        </form>
+    </div>
+
+    <!-- Features Grid -->
+
+    </section>
+
+    <body class="bg-gray-50 font-sans">
+
+        <!-- Hero Section -->
+        <div class="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 overflow-hidden">
+            <div class="absolute inset-0">
+                <svg class="absolute left-0 bottom-0 opacity-20" viewBox="0 0 1000 1000"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="pattern" patternUnits="userSpaceOnUse" width="35" height="35"
+                            patternTransform="scale(2) rotate(0)">
+                            <circle cx="10" cy="10" r="1" fill="white"></circle>
+                            <circle cx="20" cy="20" r="1" fill="white"></circle>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#pattern)"></rect>
+                </svg>
+            </div>
+
+
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">How It Works</h2>
+                    <div class="w-24 h-1 bg-blue-600 mx-auto mt-4 mb-6 rounded-full"></div>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Three simple steps to get started with our rack rental
+                        services</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-600 flex flex-col items-center text-center transform hover:-translate-y-1 transition-transform">
+                        <div class="bg-blue-100 p-4 rounded-full mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Choose the Track</h3>
+                        <p class="text-gray-600">Select racks according to the certification you desire - Enterprise,
+                            Data Center, Security, or Service Provider Tracks.</p>
+                    </div>
+
+                    <div
+                        class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-600 flex flex-col items-center text-center transform hover:-translate-y-1 transition-transform">
+                        <div class="bg-blue-100 p-4 rounded-full mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Select Rack Rental Slots</h3>
+                        <p class="text-gray-600">Choose dates that suit you best for booking, including weekends and
+                            holidays. Flexible scheduling to meet your needs.</p>
+                    </div>
+
+                    <div
+                        class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-600 flex flex-col items-center text-center transform hover:-translate-y-1 transition-transform">
+                        <div class="bg-blue-100 p-4 rounded-full mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Book & Pay</h3>
+                        <p class="text-gray-600">Once you select your rack and slot, make a payment via our PayPal,
+                            International Student or Razorpay Online method and begin accessing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Our Rack Rental Services</h2>
+                    <div class="w-24 h-1 bg-blue-600 mx-auto mt-4 mb-6 rounded-full"></div>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive lab environments for all your CCIE
+                        certification needs</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="h-48 bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center">
+                            <img src="ccie_ent-1-300x188.png" alt="CCIE Enterprise" class="h-32">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">CCIE Enterprise</h3>
+                            <p class="text-gray-600 mb-4">Access enterprise infrastructure equipment for your CCIE
+                                Enterprise certification preparation.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="ciscoenterprises.jpg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Cisco Routers & Switches
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    SD-WAN Controllers
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Wireless Access Points
+                                </li>
+                            </ul>
+                            <a href="#"
+                                class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div
+                            class="h-48 bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center">
+                            <img src="security.jpg" alt="CCIE Security" class="h-32">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">CCIE Security</h3>
+                            <p class="text-gray-600 mb-4">Practice with advanced security equipment for your CCIE
+                                Security certification.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Cisco Firepower
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    ISE & Identity Services
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    VPN Technologies
+                                </li>
+                            </ul>
+                            <a href="#"
+                                class="block text-center bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <div class="h-48 bg-gradient-to-r from-teal-600 to-teal-400 flex items-center justify-center">
+                            <img src="datacenter.png" alt="CCIE Data Center" class="h-32">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">CCIE Data Center</h3>
+                            <p class="text-gray-600 mb-4">Train on data center equipment for your CCIE Data Center
+                                certification.</p>
+                            <ul class="space-y-2 mb-6">
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Nexus Switches
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    UCS Servers
+                                </li>
+                                <li class="flex items-center text-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Storage Solutions
+                                </li>
+                            </ul>
+                            <a href="#"
+                                class="block text-center bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 px-4 rounded-lg transition">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us Section -->
+        <div class="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
+                    preserveAspectRatio="none">
+                    <defs>
+                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                </svg>
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Why Choose Our Rack Rental</h2>
+                    <div class="w-24 h-1 bg-blue-300 mx-auto mt-4 mb-6 rounded-full"></div>
+                    <p class="text-blue-100 max-w-2xl mx-auto">Discover the advantages that make our rack rental
+                        services stand out</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div
+                        class="flex items-start p-6 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl border border-blue-200 border-opacity-20 hover:bg-opacity-20 transition">
+                        <div class="bg-blue-600 rounded-lg p-3 mr-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">24/7 Availability</h3>
+                            <p class="text-blue-100">Access to your dedicated rack any time, day or night. Perfect for
+                                busy professionals preparing for certification.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex items-start p-6 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl border border-blue-200 border-opacity-20 hover:bg-opacity-20 transition">
+                        <div class="bg-blue-600 rounded-lg p-3 mr-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Flexible Scheduling</h3>
+                            <p class="text-blue-100">Book your rack for as little as 2 hours or as long as you need. Our
+                                flexible scheduling adapts to your study plan.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex items-start p-6 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl border border-blue-200 border-opacity-20 hover:bg-opacity-20 transition">
+                        <div class="bg-blue-600 rounded-lg p-3 mr-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Latest Equipment</h3>
+                            <p class="text-blue-100">Practice on the latest Cisco equipment that matches the current
+                                exam requirements. Stay updated with the newest technologies.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex items-start p-6 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl border border-blue-200 border-opacity-20 hover:bg-opacity-20 transition">
+                        <div class="bg-blue-600 rounded-lg p-3 mr-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-2">Technical Support</h3>
+                            <p class="text-blue-100">Get assistance from our certified engineers when you need it. We're
+                                here to help you with any technical issues.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <a href="#"
+                        class="inline-flex items-center bg-white text-blue-800 hover:bg-blue-50 font-medium py-3 px-8 rounded-lg transition shadow-lg hover:shadow-xl">
+                        <span>See All Features</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <div class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Transparent Pricing</h2>
+                    <div class="w-24 h-1 bg-blue-600 mx-auto mt-4 mb-6 rounded-full"></div>
+
+                </div>
+
+
+
+                <section>
+                    <div class="container mx-auto  py-8">
+                        <!-- Hero Section -->
+                        <div class="flex flex-col md:flex-row items-center mb-16">
+                            <div class="md:w-1/2 pr-4">
+                                <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">CCIE Rack Rentals Services
+                                    Global</h1>
+                                <p class="text-gray-700 mb-6">
+                                    Our CCIE Rack Rentals always strive to deliver superior solutions to professionals
+                                    by introducing innovative spaces
+                                    that help them achieve their technical aspirations. We enhance technical skills
+                                    through our premium rack rental services,
+                                    enabling seamless certification preparation and professional growth.
+                                </p>
+                                <p class="text-gray-700 mb-6">
+                                    With over a decade of experience, we provide high-quality Cisco racks with brand-new
+                                    devices designed to support all
+                                    popular workbooks for CCIE Certification preparation at competitive prices.
+                                </p>
+                                <button
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                                    Contact Us Today
+                                </button>
+                            </div>
+                            <div class="md:w-1/2 mt-8 md:mt-0">
+                                <div class="relative">
+                                    <div
+                                        class="absolute -top-4 -left-4 w-24 h-24 bg-purple-200 rounded-full opacity-70">
+                                    </div>
+                                    <div
+                                        class="absolute top-16 right-16 w-12 h-12 bg-yellow-200 rounded-full opacity-70">
+                                    </div>
+                                    <div
+                                        class="absolute bottom-4 left-16 w-16 h-16 bg-blue-200 rounded-full opacity-70">
+                                    </div>
+                                    <img src="abt1.jpg" alt="CCIE Network Illustration"
+                                        class="relative z-10 rounded-lg shadow-xl" style="width: 78%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container mx-auto  py-8">
+                        <!-- Hero Section -->
+                        <div class="flex flex-col md:flex-row items-center mb-16">
+
+                            <div class="md:w-1/2 mt-8 md:mt-0">
+                                <div class="relative">
+                                    <div
+                                        class="absolute -top-4 -left-4 w-24 h-24 bg-purple-200 rounded-full opacity-70">
+                                    </div>
+                                    <div
+                                        class="absolute top-16 right-16 w-12 h-12 bg-yellow-200 rounded-full opacity-70">
+                                    </div>
+                                    <div
+                                        class="absolute bottom-4 left-16 w-16 h-16 bg-blue-200 rounded-full opacity-70">
+                                    </div>
+                                    <img src="abt2.jpg" alt="CCIE Network Illustration"
+                                        class="relative z-10 rounded-lg shadow-xl" style="width: 78%;">
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 pr-4">
+                                <h1 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">CCIE Rack Rentals Services
+                                    Global</h1>
+                                <p class="text-gray-700 mb-6">
+                                    Our CCIE Rack Rentals always strive to deliver superior solutions to professionals
+                                    by introducing innovative spaces
+                                    that help them achieve their technical aspirations. We enhance technical skills
+                                    through our premium rack rental services,
+                                    enabling seamless certification preparation and professional growth.
+                                </p>
+                                <p class="text-gray-700 mb-6">
+                                    With over a decade of experience, we provide high-quality Cisco racks with brand-new
+                                    devices designed to support all
+                                    popular workbooks for CCIE Certification preparation at competitive prices.
+                                </p>
+                                <button
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                                    Contact Us Today
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+
+        </div>
+        <section aria-label="Client Testimonials" class="bg-gray-50 py-16 px-6">
+            <div class="max-w-5xl mx-auto text-center mb-12">
+                <h3 class="text-indigo-700 font-semibold mb-2 uppercase tracking-wide">Testimonials</h3>
+                <h2 class="text-3xl font-extrabold text-gray-900">What Our Clients Say</h2>
+            </div>
+
+            <div class="relative max-w-5xl mx-auto overflow-hidden">
+                <!-- Slides wrapper -->
+                <div id="testimonial-slider"
+                    class="flex transition-transform duration-500 ease-in-out will-change-transform">
+                    <!-- Testimonial card 1 -->
+                    <div class="flex-shrink-0 w-full md:w-1/2 p-6">
+                        <div class="bg-white rounded-lg shadow-lg p-8 relative">
+                            <svg class="w-10 h-10 text-indigo-100 absolute -top-4 left-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M7.17 6.66c-.44 1.8-2.2 2.58-3.57 2.34l1.2 3.92c1.18-.31 2.5-1.19 3.08-3.4.58-2.23-.42-3.46-0.71-3.23zM18.17 6.66c-.44 1.8-2.2 2.58-3.57 2.34l1.2 3.92c1.18-.31 2.5-1.19 3.08-3.4.58-2.23-.42-3.46-0.71-3.23z" />
+                            </svg>
+                            <p class="text-gray-700 mb-6">I am extremely grateful to CCIE Rack Rentals for their
+                                exceptional service during my CCIE lab preparation. The racks were always available
+                                at my preferred times, and the performance was seamless. Each session mirrored the
+                                real lab exam environment, crucial in building my confidence.</p>
+                            <div class="flex items-center space-x-4">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Kallie Jordan"
+                                    class="w-12 h-12 rounded-full object-cover" />
+                                <div>
+                                    <p class="text-indigo-700 font-semibold hover:underline cursor-pointer">Kallie
+                                        Jordan</p>
+                                    <div class="flex space-x-1 text-yellow-400">⭐️⭐️⭐️⭐️⭐️</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial card 2 -->
+                    <div class="flex-shrink-0 w-full md:w-1/2 p-6">
+                        <div class="bg-white rounded-lg shadow-lg p-8 relative">
+                            <svg class="w-10 h-10 text-indigo-100 absolute -top-4 left-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M7.17 6.66c-.44 1.8-2.2 2.58-3.57 2.34l1.2 3.92c1.18-.31 2.5-1.19 3.08-3.4.58-2.23-.42-3.46-0.71-3.23zM18.17 6.66c-.44 1.8-2.2 2.58-3.57 2.34l1.2 3.92c1.18-.31 2.5-1.19 3.08-3.4.58-2.23-.42-3.46-0.71-3.23z" />
+                            </svg>
+                            <p class="text-gray-700 mb-6">I cannot express enough how beneficial CCIE Rack Rentals
+                                were for my lab exam preparation. The racks were in excellent condition, and the lab
+                                environment was meticulously configured to reflect the real exam. Thank you CCIE
+                                Rack Rentals!</p>
+                            <div class="flex items-center space-x-4">
+                                <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="Ali Essam"
+                                    class="w-12 h-12 rounded-full object-cover" />
+                                <div>
+                                    <p class="text-indigo-700 font-semibold hover:underline cursor-pointer">Ali
+                                        Essam</p>
+                                    <div class="flex space-x-1 text-yellow-400">⭐️⭐️⭐️⭐️⭐️</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more testimonial cards similarly -->
+                </div>
+
+                <!-- Navigation buttons -->
+                <button id="prevBtn" aria-label="Previous"
+                    class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-indigo-700 text-white rounded-full p-2 shadow hover:bg-indigo-900 z-20">‹</button>
+                <button id="nextBtn" aria-label="Next"
+                    class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-indigo-700 text-white rounded-full p-2 shadow hover:bg-indigo-900 z-20">›</button>
+            </div>
+        </section>
+
+        <footer class="w-full text-gray-200 py-16 px-8" style="background-color: #1e3a8a;">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- Logo and About -->
+                <section aria-label="Company Information" class="space-y-6">
+                    <img src="https://i.imgur.com/wXhvwTZ.png" alt="CCIE Rack Rentals Logo" class="w-28" />
+                    <p class="text-sm leading-relaxed max-w-xs">
+                        CCIE Rack Rentals provides top-quality rack rentals for all CCIE tracks with exceptional service
+                        to help you succeed.
+                    </p>
+                </section>
+
+                <!-- Quick Links -->
+                <section aria-label="Quick Links" class="space-y-4">
+                    <h3 class="text-white font-semibold text-lg mb-4">Quick Links</h3>
+                    <nav aria-label="Footer Quick Links">
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:underline">Home</a></li>
+                            <li><a href="#" class="hover:underline">About Us</a></li>
+                            <li><a href="#" class="hover:underline">Contact Us</a></li>
+                            <li><a href="#" class="hover:underline">Terms & Conditions</a></li>
+                            <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:underline">Refund & Cancellation Policy</a></li>
+                            <li><a href="#" class="hover:underline">Payment Modes</a></li>
+                        </ul>
+                    </nav>
+                </section>
+
+                <!-- CCIE Courses -->
+                <section aria-label="CCIE Courses" class="space-y-4">
+                    <h3 class="text-white font-semibold text-lg mb-4">CCIE Courses</h3>
+                    <nav aria-label="Footer CCIE Courses Links">
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:underline">CCIE Enterprise Training</a></li>
+
+                        </ul>
+                    </nav>
+                </section>
+
+                <!-- Contact -->
+                <section aria-label="Contact Information" class="space-y-4">
+                    <h3 class="text-white font-semibold text-lg mb-4">Contact Us</h3>
+                    <address class="not-italic text-sm space-y-2">
+                        <p><a href="mailto:support@ccierack.rentals"
+                                class="hover:underline">support@ccierack.rentals</a></p>
+                        <p><a href="tel:+19513764336" class="hover:underline">+1 951-376-4336</a></p>
+                        <p>
+                            <a href="#"
+                                class="inline-flex items-center bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2 rounded-md shadow">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2 16.5V21a2 2 0 002 2h16a2 2 0 002-2v-4.5a4 4 0 00-4-4H6a4 4 0 00-4 4z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M16 11a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                Whatsapp group
+                            </a>
+                        </p>
+                    </address>
+                </section>
+            </div>
+        </footer>
+
+
+
+        <script>
+            // Track currently open dropdowns
+            let openDropdowns = {
+                level1: null,
+                level2: null,
+                level3: null
+            };
+
+            // Function to close all dropdowns
+            function closeAllDropdowns() {
+                document.querySelectorAll('.nav-dropdown, .submenu-dropdown, .level3-dropdown').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+                openDropdowns.level1 = null;
+                openDropdowns.level2 = null;
+                openDropdowns.level3 = null;
+            }
+
+            // Setup dropdown triggers and mobile toggle
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const navMenu = document.querySelector('nav ul');
+
+                // Mobile toggle
+                mobileMenuBtn?.addEventListener('click', () => {
+                    navMenu.classList.toggle('hidden');
+                });
+
+                document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+                    const dropdownId = trigger.getAttribute('data-dropdown');
+                    const dropdown = document.getElementById(dropdownId);
+                    const isLevel1 = trigger.closest('.submenu-item') === null;
+                    const isLevel2 = !isLevel1 && trigger.closest('.submenu-dropdown') !== null && trigger.closest('.level3-dropdown') === null;
+                    const isLevel3 = !isLevel1 && !isLevel2;
+
+                    trigger.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        if (isLevel1) {
+                            if (openDropdowns.level1 === dropdownId) {
+                                dropdown.style.display = 'none';
+                                openDropdowns.level1 = null;
+                                openDropdowns.level2 = null;
+                                openDropdowns.level3 = null;
+                            } else {
+                                closeAllDropdowns();
+                                dropdown.style.display = 'block';
+                                openDropdowns.level1 = dropdownId;
+                            }
+                        } else if (isLevel2) {
+                            if (openDropdowns.level2 === dropdownId) {
+                                dropdown.style.display = 'none';
+                                openDropdowns.level2 = null;
+                                openDropdowns.level3 = null;
+                            } else {
+                                document.querySelectorAll('.submenu-dropdown').forEach(submenu => {
+                                    if (submenu.id !== dropdownId && !submenu.contains(trigger)) {
+                                        submenu.style.display = 'none';
+                                    }
+                                });
+                                document.querySelectorAll('.level3-dropdown').forEach(submenu => {
+                                    submenu.style.display = 'none';
+                                });
+                                dropdown.style.display = 'block';
+                                openDropdowns.level2 = dropdownId;
+                                openDropdowns.level3 = null;
+                            }
+                        } else if (isLevel3) {
+                            if (openDropdowns.level3 === dropdownId) {
+                                dropdown.style.display = 'none';
+                                openDropdowns.level3 = null;
+                            } else {
+                                document.querySelectorAll('.level3-dropdown').forEach(submenu => {
+                                    if (submenu.id !== dropdownId) {
+                                        submenu.style.display = 'none';
+                                    }
+                                });
+                                dropdown.style.display = 'block';
+                                openDropdowns.level3 = dropdownId;
+                            }
+                        }
+                    });
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!e.target.closest('.nav-item') && !e.target.closest('.submenu-item')) {
+                        closeAllDropdowns();
+                    }
+                });
+            });
+
+        </script>
+
+    </body>
+
+</html>
